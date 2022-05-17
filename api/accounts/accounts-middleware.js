@@ -10,8 +10,8 @@ module.exports = {
 const accountSchema = yup.object().shape({
   name: yup
     .string("name of account must be a string")
-    .typeError("name of account must be a string")
     .trim()
+    .typeError("name of account must be a string")
     .required("name and budget are required")
     .min(2, "name of account must be between 3 and 100")
     .max(199, "name of account must be between 3 and 100"),
