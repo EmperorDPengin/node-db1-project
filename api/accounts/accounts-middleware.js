@@ -9,12 +9,11 @@ module.exports = {
 
 const accountSchema = yup.object().shape({
   name: yup
-    .string("name of account must be a string")
-    .trim()
-    .typeError("name of account must be a string")
+    .string()
+    .typeError("mus be a string")
     .required("name and budget are required")
-    .min(2, "name of account must be between 3 and 100")
-    .max(199, "name of account must be between 3 and 100"),
+    .min(3, "name of account must be between 3 and 100")
+    .max(100, "name of account must be between 3 and 100"),
   budget: yup
     .number("budget of account must be a number")
     .typeError("budget of account must be a number")
@@ -29,13 +28,15 @@ const accountSchema = yup.object().shape({
 
  function checkAccountPayload(req, res, next) {
   // DO YOUR MAGIC
+  req.body.name = !req.body.name ? "" : req.body.name.trim();
+
   accountSchema.validate(req.body,
     {
       strict: true,
       stripUnknown: true
     })
-      .then(validate => {
-        req.body = validate;
+      .then(validated => {
+        req.body = validated;
         next();
       })
       .catch(err => {

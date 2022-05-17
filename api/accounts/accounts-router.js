@@ -38,7 +38,7 @@ router.put('/:id',checkAccountId, checkAccountPayload, (req, res, next) => {
 
 router.delete('/:id',checkAccountId, (req, res, next) => {
   // DO YOUR MAGIC
-  Accounts.deleteById(req.param.id)
+  Accounts.deleteById(req.params.id)
     .then(deletedAccount => {
       res.status(200).json(deletedAccount);
     })
